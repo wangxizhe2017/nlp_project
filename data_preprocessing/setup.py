@@ -115,6 +115,8 @@ unknown = {
 UPPER_POS_TAGGER_SET = {"N", "V", "ADJ", "ADV", "PRE", "PRP", "CC", "DT", "UH", "PUNC", "SPEC", "NUM", "POS", "UP", "UNK"}
 
 ALL_POS_TAGGER_DICT = {
+    "S": "S",
+
     "NN": "N",
     "NP": "N",
     "NNS": "N",
@@ -147,6 +149,8 @@ ALL_POS_TAGGER_DICT = {
 
     "TO": "PRE",
     "IN": "PRE",
+    "RP": "UP",
+    "PRT": "UP",
 
     "PRP": "PRP",
     "PRP$": "PRP",
@@ -172,9 +176,8 @@ ALL_POS_TAGGER_DICT = {
     "SYM": "SPEC",
     "CD": "NUM",
     "QP": "NUM",
+
     "POS": "POS",
-    "RP": "UP",
-    "PRT": "UP",
 
     "UCP": "UNK",
     "CONJP": "UNK",
@@ -189,8 +192,14 @@ ALL_POS_TAGGER_DICT = {
     "FRAG": "UNK",
     "X": "UNK",
     "XX": "UNK",
-    "S": "UNK",
 }
+
+
+MUST_KEEP_WORD_SET = {"no", "not", "n't", "yes", "all", "both", "or"}
+KEEP_SET = {"NN", "NP", "NNS", "NNP", "NNPS", "WHNP", "MD", "VB", "VP", "VBD", "VBP", "VBG", "VBN", "VBZ",
+            "JJ", "JJR", "JJS", "ADJP", "WHADJP", "PDT", "RB", "RBR", "RBS", "WRB", "ADVP", "WHADVP",
+            "CC", "CD", "EX", "SYM", "QP", "RP", "PRT", "FW", "SYM",
+            ",", ".", ":", "''"}
 
 
 if __name__ == "__main__":
