@@ -1,3 +1,4 @@
+import os
 import datetime
 
 Path_STD = "./reorganized_data/"
@@ -5,7 +6,7 @@ Log_Name = "log.txt"
 
 
 def write_string(str_to_write, file_name=Log_Name, path=Path_STD, end=None):
-    file_path_name = path + file_name
+    file_path_name = os.path.join(path, file_name)
 
     file = open(file_path_name, 'a+')
     file.write("{}{}".format(str_to_write, end if end is not None else "\n"))

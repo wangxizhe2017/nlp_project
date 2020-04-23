@@ -202,6 +202,32 @@ KEEP_SET = {"NN", "NP", "NNS", "NNP", "NNPS", "WHNP", "MD", "VB", "VP", "VBD", "
             ",", ".", ":", "''"}
 
 
+VERB_ADJ_ADV_DICT = {
+    "MD": "V",
+    "VB": "V",
+    "VP": "V",
+    "VBD": "V",
+    "VBP": "V",
+    "VBG": "V",
+    "VBN": "V",
+    "VBZ": "V",
+
+    "JJ": "ADJ",
+    "JJR": "ADJ",
+    "JJS": "ADJ",
+    "ADJP": "ADJ",
+    "WHADJP": "ADJ",
+    "PDT": "ADJ",
+
+    "RB": "ADV",
+    "RBR": "ADV",
+    "RBS": "ADV",
+    "WRB": "ADV",
+    "ADVP": "ADV",
+    "WHADVP": "ADV",
+}
+
+
 if __name__ == "__main__":
     # print(len(noun) + len(verb) + len(adj) + len(adv) + len(preposition) + len(pronoun) + len(conj) + len(article) + len(particle)
     #       + len(punctuation) + len(special) + len(unknown))

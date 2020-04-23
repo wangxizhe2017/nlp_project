@@ -31,10 +31,10 @@ def parse_pos_tagger_from_line(line):
 def get_all_pos_tagger_from_data_set(path_name):
     pos_tagger_set = set({})
 
-    file_path_name_list = get_file_path_name_list_in_path(path_name)
+    file_path_name_list = get_file_path_name_list_in_dir(path_name)
 
     for file_path_name in file_path_name_list:
-        line_list = get_string_list_line_by_line_from_test(file_path_name)
+        line_list = get_string_list_line_by_line_from_text(file_path_name)
 
         for line in line_list:
             pos_tagger_set = set.union(pos_tagger_set, parse_pos_tagger_from_line(line))
@@ -53,13 +53,13 @@ def keep_word(post_list, limit_num):
             break
 
         if post_list[l - i] in KEEP_SET:
-            return True
+            return True, post_list[l - i]
 
     return False
 
 
 def parse_sentence(sentence_str):
-    word_keep = []
+    word_keep_list = []
     word_remove = []
 
     level = 0
@@ -87,7 +87,7 @@ def parse_sentence(sentence_str):
 
             elif focus_word:
                 if keep_word(post_list, right_bracket_num):
-                    word_keep.append(word)
+                    word_keep_list.append(word)
                     post_list[-1] = ""
 
                 else:
@@ -107,20 +107,86 @@ def parse_sentence(sentence_str):
             word += c
 
     sentence = ""
-    for i, word in enumerate(word_keep):
+    for i, word in enumerate(word_keep_list):
         if i == 0:
             sentence += word
 
-        elif i == len(word_keep) - 1:
+        elif i == len(word_keep_list) - 1:
             sentence += word
 
         else:
             sentence += " " + word
 
-    # print("keep: {}".format(word_keep))
+    # print("keep: {}".format(word_keep_list))
     # print("remo: {}".format(word_remove))
 
     return sentence
+
+
+# ====================================================================================================
+
+
+def recursive_post(all_post_list, limit_num):
+    l = len(all_post_list) - 1
+
+    curr_post = ""
+    for i in range(limit_num):
+        if all_post_list[l - i] == "":
+            break
+
+        else:
+            curr_post = VERB_ADJ_ADV_DICT[all_post_list[l - i]] if all_post_list[l - i] in VERB_ADJ_ADV_DICT else "OTHER"
+
+    return curr_post
+
+
+def sentence_and_post(sentence_str):
+    word_list = []
+    post_list = []
+    all_post_list = []
+
+    word = ""
+    post = ""
+    focus_word = False
+    focus_post = False
+    right_bracket_num = 0
+    for c in sentence_str.replace("\"", ""):
+        if c == "(":
+            post = ""
+            focus_post = True
+            focus_word = False
+
+        elif c == ")":
+            right_bracket_num += 1
+
+        elif c == " " or c == "\n":
+            if focus_post:
+                all_post_list.append(post)
+
+                word = ""
+                focus_post = False
+                focus_word = True
+
+            elif focus_word:
+                word_list.append(word)
+                post_list.append(recursive_post(all_post_list, right_bracket_num))
+                all_post_list[-1] = ""
+
+                focus_post = False
+                focus_word = False
+                right_bracket_num = 0
+
+        elif focus_post:
+            post += c
+
+        elif focus_word:
+            word += c
+
+    # print(word_list)
+    # print(post_list)
+    # print(all_post_list)
+
+    return word_list, post_list
 
 
 if __name__ == "__main__":
@@ -132,6 +198,8 @@ if __name__ == "__main__":
         line_list = get_string_list_line_by_line_from_text(join(PARSED_DATA_PATH, file_name))
 
         for j, line in enumerate(line_list):
-            reorganized_sentence = parse_sentence(line)
-            write_string(reorganized_sentence, file_name=file_name)
+            # reorganized_sentence = parse_sentence(line)
+            # write_string(reorganized_sentence, file_name=file_name)
+            word_list, post_list = sentence_and_post(line)
+            write_string(str([word_list, post_list]), file_name=file_name, path="antonym_sentence")
 
