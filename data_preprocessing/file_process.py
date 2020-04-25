@@ -5,6 +5,7 @@ from os.path import isfile, join
 ROOT_PATH = "./"
 PARSED_DATA_PATH = join(ROOT_PATH, "parsed_data")
 REORGANIZED_DATA_PATH = join(ROOT_PATH, "reorganized_data")
+ANTONYM_PATH = join(ROOT_PATH, "antonym_sentence")
 
 
 def get_file_name_list_in_dir(path_name):

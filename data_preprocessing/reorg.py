@@ -1,4 +1,5 @@
 import spacy
+from nltk.corpus import wordnet as wn
 
 from data_preprocessing.file_process import *
 from data_preprocessing.setup import *
@@ -214,9 +215,81 @@ def generate_sentence_and_post(path):
             write_string(str("{}\t{}".format(word_list, post_list)), file_name=file_name, path="antonym_sentence")
 
 
+def get_antonyms(word):
+    antonyms = []
+    for syn in wn.synsets(word):
+        for l in syn.lemmas():
+            if l.antonyms():
+                antonyms.append(l.antonyms()[0].name())
+    if len(antonyms) > 0:
+        return antonyms[0]
+
+
+def antonym_generator_main(line):
+    line = line.split('\t')
+    left = line[0][2:-3].split("', '")
+    right = line[1][2:-3].split("', '")
+    zipped = zip(left, right)
+    new_line = list()
+    count = 0
+    for i, word in enumerate(zipped):
+        # if word[0] == "n\'t":
+        #     del left[i]
+        #     new_line.append(left)
+        #     break
+        if word[1] == 'ADJ' or word[1] == 'ADV' and get_antonyms(word[0]):
+            count += 1
+            if count % 2 == 1:
+                new_line.append(get_antonyms(word[0]))
+            else:
+                new_line.append(word[0])
+        elif word[1] == 'V':
+            count += 1
+            if count % 2 == 1:
+                new_line.append('not')
+                new_line.append(word[0])
+            else:
+                new_line.append(word[0])
+        else:
+            new_line.append(word[0])
+
+    sentence = ""
+    for i, word in enumerate(new_line):
+        if word is None:
+            continue
+
+        if i == 0:
+            sentence += word
+
+        elif i == len(new_line) - 1:
+            sentence += word
+
+        elif word.find("\'") != -1:
+            sentence += word
+
+        elif word == ",":
+            sentence += word
+
+        else:
+            sentence += " " + word
+
+    return sentence
+
+
+def generate_whole_train_csv(path):
+    file_name_list = get_file_name_list_in_dir(path)
+
+    for i, file_name in enumerate(file_name_list):
+        line_list = get_string_list_line_by_line_from_text(join(path, file_name))
+        for j, line in enumerate(line_list):
+            antonym_sentence = antonym_generator_main(line)
+            write_string(antonym_sentence, file_name="train_sentence_5_antonym.txt", path=path)
+
+
 if __name__ == "__main__":
     # get_all_pos_tagger_from_data_set(PARSED_DATA_PATH)
 
     # parse_and_reorganize_sentence(PARSED_DATA_PATH)
-    generate_sentence_and_post(PARSED_DATA_PATH)
+    # generate_sentence_and_post(PARSED_DATA_PATH)
+    generate_whole_train_csv(ANTONYM_PATH)
 

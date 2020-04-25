@@ -1,6 +1,7 @@
 import os
 import csv
 import pandas as pd
+import numpy as np
 from tqdm import tqdm
 import random as rd
 from data_preprocessing.log_writer import *
@@ -21,13 +22,15 @@ def get_sentence_from_scv(csv_file_name, csv_path, sentence_num, json_file_prefi
 
 
 def random_swap_two_columns_in_csv(file_name, path, swap_1, swap_2, label):
+    l = 98155
     df = pd.read_csv(os.path.join(path, file_name), index_col=0)
+    p_list = list(np.random.permutation(l))
 
-    for i, (sentence1, sentence2) in enumerate(zip(df[swap_1], df[swap_2])):
+    for i, (sentence1, sentence2) in enumerate(tqdm(zip(df[swap_1], df[swap_2]), ncols=80, leave=False)):
         if i >= 0:
-            print("{}; {}".format(sentence1, sentence2))
-            print("{}; {}".format(df[swap_1][i], df[swap_2][i]))
-            if rd.randint(1, 2) == 2:
+            # print("{}; {}".format(sentence1, sentence2))
+            # print("{}; {}".format(df[swap_1][i], df[swap_2][i]))
+            if p_list.index(i) < int(l / 2):
                 df[swap_1][i] = sentence2
                 df[swap_2][i] = sentence1
                 df[label][i] = 2
@@ -39,22 +42,24 @@ def random_swap_two_columns_in_csv(file_name, path, swap_1, swap_2, label):
 
 
 if __name__ == "__main__":
-    # testing data
-    get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 1, json_file_prefix="test")
-    get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 2, json_file_prefix="test")
-    get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 3, json_file_prefix="test")
-    get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 4, json_file_prefix="test")
-    get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=1)
-    get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=2)
-    # validation data
-    get_sentence_from_scv("spring_winter_combined.csv", "../data", 1, json_file_prefix="val")
-    get_sentence_from_scv("spring_winter_combined.csv", "../data", 2, json_file_prefix="val")
-    get_sentence_from_scv("spring_winter_combined.csv", "../data", 3, json_file_prefix="val")
-    get_sentence_from_scv("spring_winter_combined.csv", "../data", 4, json_file_prefix="val")
-    get_sentence_from_scv("spring_winter_combined.csv", "../data", 5, json_file_prefix="val", opt=1)
-    get_sentence_from_scv("spring_winter_combined.csv", "../data", 5, json_file_prefix="val", opt=2)
-    # training data
+    # # testing data
+    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 1, json_file_prefix="test")
+    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 2, json_file_prefix="test")
+    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 3, json_file_prefix="test")
+    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 4, json_file_prefix="test")
+    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=1)
+    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=2)
+    # # validation data
+    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 1, json_file_prefix="val")
+    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 2, json_file_prefix="val")
+    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 3, json_file_prefix="val")
+    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 4, json_file_prefix="val")
+    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 5, json_file_prefix="val", opt=1)
+    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 5, json_file_prefix="val", opt=2)
+    # # training data
     # get_sentence_from_scv("train_combined.csv", "../data", 5, json_file_prefix="train")
 
-    # random_swap_two_columns_in_csv("my_test.csv", "C:\\Users\\caesar\\Desktop\\1\\", "a1", "b2", "AnswerRightEnding")
+    random_swap_two_columns_in_csv("train_combined.csv", "C:\\Users\\caesar\\Desktop\\1\\",
+                                   "RandomFifthSentenceQuiz1", "RandomFifthSentenceQuiz2", "AnswerRightEnding")
+
 
