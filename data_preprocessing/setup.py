@@ -41,13 +41,11 @@ adv = {
     "WHADVP": "ADV",
 }
 
-# 介词
 preposition = {
     "TO": "PRE",
     "IN": "CC", # of for from to at so with as
 }
 
-# 代词
 pronoun = {
     "PRP": "PRP",
     "PRP$": "PRP",
@@ -55,24 +53,20 @@ pronoun = {
     "WP$": "PRP",
 }
 
-# 连词
 conj = {
     "CC": "CC", # and but both
 }
 
-# 冠词
 article = {
     "DT": "DT", # a an the no
-    "WDT": "DT", # 定于从句提示词 which that
+    "WDT": "DT", # which that
 }
 
-# 语助词
 particle = {
     "UH": "UH",
     "INTJ": "UH",
 }
 
-# 标点
 punctuation = {
     ",": "PUNC",
     ".": "PUNC",
@@ -82,26 +76,25 @@ punctuation = {
     "HYPH": "PUNC",
 }
 
-# 特殊
 special = {
     "FW": "SPEC",
     "SYM": "SPEC",
     "CD": "NUM",
-    "QP": "NUM", # 数字短语
+    "QP": "NUM", #
     "POS": "POS", # 's
     "RP": "PART", # up
     "PRT": "PART", # up
 }
 
 unknown = {
-    "UCP": "",  # 并列比较短语
-    "CONJP": "",  # 连词短语
-    "PP": "",  # 条件状语
+    "UCP": "",
+    "CONJP": "",
+    "PP": "",
     "SINV": "",  # ?
-    "WHPP": "",  # 地点、时间、方式状语
-    "SQ": "",  # 疑问
+    "WHPP": "",
+    "SQ": "",
     "EX": "",  # there
-    "SBAR": "",  # 从句
+    "SBAR": "",
     "PRN": "",
     "SBARQ": "",
     "FRAG": "",

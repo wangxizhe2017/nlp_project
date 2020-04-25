@@ -189,17 +189,34 @@ def sentence_and_post(sentence_str):
     return word_list, post_list
 
 
+def parse_and_reorganize_sentence(path):
+    file_name_list = get_file_name_list_in_dir(path)
+
+    for i, file_name in enumerate(file_name_list):
+        line_list = get_string_list_line_by_line_from_text(join(path, file_name))
+
+        for j, line in enumerate(line_list):
+            reorganized_sentence = parse_sentence(line)
+            write_string(reorganized_sentence, file_name=file_name, path="reorganized_data")
+
+
+def generate_sentence_and_post(path):
+    file_name_list = get_file_name_list_in_dir(path)
+
+    for i, file_name in enumerate(file_name_list):
+        if file_name != "train_sentence_5.txt":
+            continue
+
+        line_list = get_string_list_line_by_line_from_text(join(path, file_name))
+
+        for j, line in enumerate(line_list):
+            word_list, post_list = sentence_and_post(line)
+            write_string(str("{}\t{}".format(word_list, post_list)), file_name=file_name, path="antonym_sentence")
+
+
 if __name__ == "__main__":
     # get_all_pos_tagger_from_data_set(PARSED_DATA_PATH)
 
-    file_name_list = get_file_name_list_in_dir(PARSED_DATA_PATH)
-
-    for i, file_name in enumerate(file_name_list):
-        line_list = get_string_list_line_by_line_from_text(join(PARSED_DATA_PATH, file_name))
-
-        for j, line in enumerate(line_list):
-            # reorganized_sentence = parse_sentence(line)
-            # write_string(reorganized_sentence, file_name=file_name)
-            word_list, post_list = sentence_and_post(line)
-            write_string(str([word_list, post_list]), file_name=file_name, path="antonym_sentence")
+    # parse_and_reorganize_sentence(PARSED_DATA_PATH)
+    generate_sentence_and_post(PARSED_DATA_PATH)
 
