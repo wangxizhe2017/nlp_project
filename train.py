@@ -18,7 +18,7 @@ from utils import (encode_dataset, iter_data,
 from loss import MultipleChoiceLossCompute
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 def transform_roc(X1, X2, X3):
     n_batch = len(X1)
@@ -149,8 +149,8 @@ if __name__ == '__main__':
     parser.add_argument('--submit', action='store_true', default=True)
     parser.add_argument('--analysis', action='store_true', default=True)
     parser.add_argument('--seed', type=int, default=42)
-    parser.add_argument('--n_iter', type=int, default=5)
-    parser.add_argument('--n_batch', type=int, default=8)
+    parser.add_argument('--n_iter', type=int, default=10)
+    parser.add_argument('--n_batch', type=int, default=20)
     parser.add_argument('--max_grad_norm', type=int, default=1)
     parser.add_argument('--lr', type=float, default=6.25e-5)
     parser.add_argument('--lr_warmup', type=float, default=0.002)
@@ -174,7 +174,7 @@ if __name__ == '__main__':
     parser.add_argument('--b1', type=float, default=0.9)
     parser.add_argument('--b2', type=float, default=0.999)
     parser.add_argument('--e', type=float, default=1e-8)
-    parser.add_argument('--n_valid', type=int, default=374)
+    parser.add_argument('--n_valid', type=int, default=377)
 
     args = parser.parse_args()
     print(args)
@@ -197,6 +197,7 @@ if __name__ == '__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     n_gpu = torch.cuda.device_count()
     print("device", device, "n_gpu", n_gpu)
+    print("gpu_number: ", os.environ["CUDA_VISIBLE_DEVICES"])
 
     logger = ResultLogger(path=os.path.join(log_dir, '{}.jsonl'.format(desc)), **args.__dict__)
     text_encoder = TextEncoder(args.encoder_path, args.bpe_path)
