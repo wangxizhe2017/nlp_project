@@ -2,9 +2,9 @@
 
 This repo is modified from [ORIGINAL PYTORCH IMPLEMENTATION](https://github.com/huggingface/pytorch-openai-transformer-lm). 
 
-The project report is [Story Cloze Test with Fine AdjustmentSchemes of GPT-2 Model](https://github.com/wangxizhe2017/nlp_project/blob/master/Story%20Cloze%20Test%20with%20Fine%20AdjustmentSchemes%20of%20GPT-2%20Model.pdf)
+The project report is [Story Cloze Test with Fine AdjustmentSchemes of GPT-2 Model](https://github.com/wangxizhe2017/nlp_project/blob/master/Story%20Cloze%20Test%20with%20Fine%20AdjustmentSchemes%20of%20GPT-2%20Model.pdf).
 
-## Original README
+## README
 
 This is a PyTorch implementation of the [TensorFlow code](https://github.com/openai/finetune-transformer-lm) provided with OpenAI's paper ["Improving Language Understanding by Generative Pre-Training"](https://blog.openai.com/language-unsupervised/) by Alec Radford, Karthik Narasimhan, Tim Salimans and Ilya Sutskever.
 
@@ -42,8 +42,8 @@ python train.py --dataset rocstories --desc rocstories --submit --analysis --dat
 ```
 Since we have 5 datasets in our data_dir, you will need to modify the path of the data in datasets.py, in order to get the 5 results mentioned in our paper.
 
-In baseline model, we used the original validation set as our training data. In case 1, we used reorganized validationset as training data, and tested on reorganized testing set. In case 2, we used reorganized validation set as training data,and tested on the original testing set. In case 3, we combinedthe manually generated antonym sentences with the validationset as our new training set, and then tested on the original testset. In case 4, we only used the last sentence of the validationset as our training data, and tested on the original testing set.
+In baseline model, we used the original validation set as our training data. In case 1, we used reorganized validationset as training data, and tested on reorganized testing set. In case 2, we used reorganized validation set as training data, and tested on the original testing set. In case 3, we combined the manually generated antonym sentences with the validation set as our new training set, and then tested on the original test set. In case 4, we only used the last sentence of the validation set as our training data, and tested on the original testing set.
 
-#### First experiments on the ROCStories test set
+#### Experiments on the ROCStories test set with different datasets
 The test accuracy for baseline model is 86.53%, for case 1 is 86.37%, for case 2 is 85.89%, for case 3 is 85.36%, and for case 4 is 84.5%.
 
