@@ -2,6 +2,8 @@
 
 This repo is modified from [ORIGINAL PYTORCH IMPLEMENTATION](https://github.com/huggingface/pytorch-openai-transformer-lm). 
 
+The project report is named 'Story Cloze Test with Fine AdjustmentSchemes of GPT-2 Model.pdf' under this directory.
+
 ## Original README
 
 This is a PyTorch implementation of the [TensorFlow code](https://github.com/openai/finetune-transformer-lm) provided with OpenAI's paper ["Improving Language Understanding by Generative Pre-Training"](https://blog.openai.com/language-unsupervised/) by Alec Radford, Karthik Narasimhan, Tim Salimans and Ilya Sutskever.
