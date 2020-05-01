@@ -287,9 +287,10 @@ def generate_whole_train_csv(path):
 
 
 if __name__ == "__main__":
-    # get_all_pos_tagger_from_data_set(PARSED_DATA_PATH)
+    if GENERATE_REORGANIZE_SENTENCE:
+        # get_all_pos_tagger_from_data_set(PARSED_DATA_PATH)
+        parse_and_reorganize_sentence(PARSED_DATA_PATH)
 
-    # parse_and_reorganize_sentence(PARSED_DATA_PATH)
     # generate_sentence_and_post(PARSED_DATA_PATH)
-    generate_whole_train_csv(ANTONYM_PATH)
+    # generate_whole_train_csv(ANTONYM_PATH)
 

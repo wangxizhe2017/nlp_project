@@ -5,6 +5,7 @@ import numpy as np
 from tqdm import tqdm
 import random as rd
 from data_preprocessing.log_writer import *
+from data_preprocessing.setup import *
 
 
 def get_sentence_from_scv(csv_file_name, csv_path, sentence_num, json_file_prefix, json_path="./json_sentence", opt=0):
@@ -42,24 +43,26 @@ def random_swap_two_columns_in_csv(file_name, path, swap_1, swap_2, label):
 
 
 if __name__ == "__main__":
-    # # testing data
-    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 1, json_file_prefix="test")
-    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 2, json_file_prefix="test")
-    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 3, json_file_prefix="test")
-    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 4, json_file_prefix="test")
-    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=1)
-    # get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=2)
-    # # validation data
-    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 1, json_file_prefix="val")
-    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 2, json_file_prefix="val")
-    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 3, json_file_prefix="val")
-    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 4, json_file_prefix="val")
-    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 5, json_file_prefix="val", opt=1)
-    # get_sentence_from_scv("spring_winter_combined.csv", "../data", 5, json_file_prefix="val", opt=2)
-    # # training data
-    # get_sentence_from_scv("train_combined.csv", "../data", 5, json_file_prefix="train")
+    if GET_SENTENCE_FROM_SCV:
+        # testing data
+        get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 1, json_file_prefix="test")
+        get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 2, json_file_prefix="test")
+        get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 3, json_file_prefix="test")
+        get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 4, json_file_prefix="test")
+        get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=1)
+        get_sentence_from_scv("cloze_test_test__spring2016 - cloze_test_ALL_test.csv", "../data", 5, json_file_prefix="test", opt=2)
+        # validation data
+        get_sentence_from_scv("spring_winter_combined_prev.csv", "../data", 1, json_file_prefix="val")
+        get_sentence_from_scv("spring_winter_combined_prev.csv", "../data", 2, json_file_prefix="val")
+        get_sentence_from_scv("spring_winter_combined_prev.csv", "../data", 3, json_file_prefix="val")
+        get_sentence_from_scv("spring_winter_combined_prev.csv", "../data", 4, json_file_prefix="val")
+        get_sentence_from_scv("spring_winter_combined_prev.csv", "../data", 5, json_file_prefix="val", opt=1)
+        get_sentence_from_scv("spring_winter_combined_prev.csv", "../data", 5, json_file_prefix="val", opt=2)
+        # training data
+        get_sentence_from_scv("train_combined.csv", "../data", 5, json_file_prefix="train")
 
-    random_swap_two_columns_in_csv("train_combined.csv", "C:\\Users\\caesar\\Desktop\\1\\",
-                                   "RandomFifthSentenceQuiz1", "RandomFifthSentenceQuiz2", "AnswerRightEnding")
+    elif SWAP_OPTION1_AND_OPTION2:
+        random_swap_two_columns_in_csv("train_combined.csv", "../data/",
+                                       "RandomFifthSentenceQuiz1", "RandomFifthSentenceQuiz2", "AnswerRightEnding")
 
 

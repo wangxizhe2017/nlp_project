@@ -221,6 +221,11 @@ VERB_ADJ_ADV_DICT = {
 }
 
 
+GET_SENTENCE_FROM_SCV = True
+GENERATE_REORGANIZE_SENTENCE = False
+SWAP_OPTION1_AND_OPTION2 = False
+
+
 if __name__ == "__main__":
     # print(len(noun) + len(verb) + len(adj) + len(adv) + len(preposition) + len(pronoun) + len(conj) + len(article) + len(particle)
     #       + len(punctuation) + len(special) + len(unknown))
