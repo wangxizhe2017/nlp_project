@@ -2,7 +2,7 @@
 
 This repo is modified from [ORIGINAL PYTORCH IMPLEMENTATION](https://github.com/huggingface/pytorch-openai-transformer-lm). 
 
-The project report is [Story Cloze Test with Fine AdjustmentSchemes of GPT-2 Model](https://github.com/wangxizhe2017/nlp_project/blob/master/Story%20Cloze%20Test%20with%20Fine%20AdjustmentSchemes%20of%20GPT-2%20Model.pdf).
+The project report is [Story Cloze Test with Fine Adjustment Schemes of GPT-2 Model](https://github.com/wangxizhe2017/nlp_project/blob/master/Story%20Cloze%20Test%20with%20Fine%20AdjustmentSchemes%20of%20GPT-2%20Model.pdf).
 
 ## README
 
