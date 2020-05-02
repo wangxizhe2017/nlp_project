@@ -30,6 +30,7 @@ To run the classifier training script in [train.py](train.py) you will need in a
 - spacy
 - ftfy
 - pandas
+- allennlp
 
 ## Fine-tuning the pre-trained model on a classification task
 The ROCStories dataset can be downloaded from the associated [website](http://cs.rochester.edu/nlp/rocstories/).
@@ -40,6 +41,27 @@ As with the [TensorFlow code](https://github.com/openai/finetune-transformer-lm)
 python -m spacy download en
 python train.py --dataset rocstories --desc rocstories --submit --analysis --data_dir data
 ```
+
+Use AllenNLP to generate part-of-speech tags with sentences.
+First, download the pre-trained model from (https://s3-us-west-2.amazonaws.com/allennlp/models/elmo-constituency-parser-2018.03.14.tar.gz)
+```bash
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/test_sentence_1.json --predictor=constituency-parser --output-file parsed_data/test_sentence_1.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/test_sentence_2.json --predictor=constituency-parser --output-file parsed_data/test_sentence_2.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/test_sentence_3.json --predictor=constituency-parser --output-file parsed_data/test_sentence_3.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/test_sentence_4.json --predictor=constituency-parser --output-file parsed_data/test_sentence_4.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/test_sentence_5_op1.json --predictor=constituency-parser --output-file parsed_data/test_sentence_5_op1.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/test_sentence_5_op2.json --predictor=constituency-parser --output-file parsed_data/test_sentence_5_op2.txt --batch-size 128 --cuda-device 0
+
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/val_sentence_1.json --predictor=constituency-parser --output-file parsed_data/val_sentence_1.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/val_sentence_2.json --predictor=constituency-parser --output-file parsed_data/val_sentence_2.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/val_sentence_3.json --predictor=constituency-parser --output-file parsed_data/val_sentence_3.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/val_sentence_4.json --predictor=constituency-parser --output-file parsed_data/val_sentence_4.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/val_sentence_5_op1.json --predictor=constituency-parser --output-file parsed_data/val_sentence_5_op1.txt --batch-size 128 --cuda-device 0
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/val_sentence_5_op2.json --predictor=constituency-parser --output-file parsed_data/val_sentence_5_op2.txt --batch-size 128 --cuda-device 0
+
+python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/train_sentence_5.json --predictor=constituency-parser --output-file parsed_data/train_sentence_5.txt --batch-size 128 --cuda-device 0
+```
+
 Since we have 5 datasets in our data_dir, you will need to modify the path of the data in datasets.py, in order to get the 5 results mentioned in our paper.
 
 In baseline model, we used the original validation set as our training data. In case 1, we used reorganized validationset as training data, and tested on reorganized testing set. In case 2, we used reorganized validation set as training data, and tested on the original testing set. In case 3, we combined the manually generated antonym sentences with the validation set as our new training set, and then tested on the original test set. In case 4, we only used the last sentence of the validation set as our training data, and tested on the original testing set.
