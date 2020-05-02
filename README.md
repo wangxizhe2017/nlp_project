@@ -32,16 +32,7 @@ To run the classifier training script in [train.py](train.py) you will need in a
 - pandas
 - allennlp
 
-## Fine-tuning the pre-trained model on a classification task
-The ROCStories dataset can be downloaded from the associated [website](http://cs.rochester.edu/nlp/rocstories/).
-
-As with the [TensorFlow code](https://github.com/openai/finetune-transformer-lm), this code implements the ROCStories Cloze Test result reported in the paper which can be reproduced by running:
-
-```bash
-python -m spacy download en
-python train.py --dataset rocstories --desc rocstories --submit --analysis --data_dir data
-```
-
+## AllenNLP
 Use AllenNLP to generate part-of-speech tags with sentences.
 First, download the pre-trained model from (https://s3-us-west-2.amazonaws.com/allennlp/models/elmo-constituency-parser-2018.03.14.tar.gz)
 ```bash
@@ -60,6 +51,17 @@ python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_d
 python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/val_sentence_5_op2.json --predictor=constituency-parser --output-file parsed_data/val_sentence_5_op2.txt --batch-size 128 --cuda-device 0
 
 python -m allennlp.run predict elmo-constituency-parser-2018.03.14.tar.gz orig_data/train_sentence_5.json --predictor=constituency-parser --output-file parsed_data/train_sentence_5.txt --batch-size 128 --cuda-device 0
+```
+
+
+## Fine-tuning the pre-trained model on a classification task
+The ROCStories dataset can be downloaded from the associated [website](http://cs.rochester.edu/nlp/rocstories/).
+
+As with the [TensorFlow code](https://github.com/openai/finetune-transformer-lm), this code implements the ROCStories Cloze Test result reported in the paper which can be reproduced by running:
+
+```bash
+python -m spacy download en
+python train.py --dataset rocstories --desc rocstories --submit --analysis --data_dir data
 ```
 
 Since we have 5 datasets in our data_dir, you will need to modify the path of the data in datasets.py, in order to get the 5 results mentioned in our paper.
